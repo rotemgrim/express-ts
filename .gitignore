@@ -1,43 +1,38 @@
-bin
-obj
-csx
-.vs
-edge
-Publish
+lib-cov
+*.seed
+*.log
+*.csv
+*.dat
+*.out
+*.pid
+*.gz
+*.swp
 
-*.user
-*.suo
-*.cscfg
-*.Cache
-project.lock.json
+pids
+logs
+results
+tmp
 
-/packages
-/TestResults
+# Build
+public/css/main.css
 
-/tools/NuGet.exe
-/App_Data
-/secrets
-/data
-.secrets
-appsettings.json
-local.settings.json
+# Coverage reports
+coverage
 
-node_modules
-dist
-
-# Local python packages
-.python_packages/
-
-# Python Environments
+# API keys and secrets
 .env
-.venv
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
 
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-*$py.class
+# Dependency directory
+node_modules
+bower_components
+
+# Editors
+.idea
+*.iml
+
+# OS metadata
+.DS_Store
+Thumbs.db
+
+# Ignore built ts files
+dist/**/*

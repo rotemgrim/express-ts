@@ -1,6 +1,6 @@
 
 export interface IController {
-    
+
 }
 
 export default class AbstractController implements IController {

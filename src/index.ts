@@ -1,5 +1,5 @@
-import HaploApp from "./haplo/App";
-import {Container} from "typedi";
+import HaploApp from "./app/App";
+import { Container } from "typedi";
 
 import { exampleMiddleware } from "./middlewares/ExampleMiddleware";
 import { baseRoutes } from "./routes/baseRoutes";
@@ -12,7 +12,7 @@ haplo.setGlobalMiddlewares([
 
 haplo.setRoutes([
     baseRoutes,
-])
+]);
 
 const app = haplo.start();
 

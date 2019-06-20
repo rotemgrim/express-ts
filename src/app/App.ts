@@ -30,7 +30,7 @@ export default class HaploApp {
 
     public start() {
         this.loadMiddlewares();
-        
+
         this.app.set("port", process.env.PORT || 3000);
         // this.app.set("views", path.join(__dirname, "../views"));
         // this.app.set("view engine", "pug");
@@ -39,7 +39,7 @@ export default class HaploApp {
         // this.app.use(bodyParser.urlencoded({ extended: true }));
         // this.app.use(expressValidator());
 
-        this.app.use('/', this.router);
+        this.app.use("/", this.router);
         this.loadRoutes();
         this.app.listen(this.app.get("port"), () => console.log(`Example app listening on port ${this.app.get("port")}!`));
         return this.app;
