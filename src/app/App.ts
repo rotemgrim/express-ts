@@ -5,6 +5,8 @@ import compression from "compression";  // compresses requests
 import session from "express-session";
 import bodyParser from "body-parser";
 import * as http from "http";
+import DbFactory from "../config/DbFactory";
+import { dbConf } from "../config/config";
 
 export type HaploRequest = express.Request;
 export type HaploResponse = express.Response;
@@ -29,6 +31,9 @@ export default class HaploApp {
     }
 
     public start() {
+
+        DbFactory.createConnection(dbConf).catch(e => { throw new Error(e); });
+
         this.loadMiddlewares();
 
         this.app.set("port", process.env.PORT || 3000);

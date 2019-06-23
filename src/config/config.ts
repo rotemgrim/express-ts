@@ -1,6 +1,8 @@
 import dotenv from "dotenv";
 import fs from "fs";
 import logger from "../util/logger";
+import { ConnectionOptions } from "typeorm";
+import path from "path";
 
 if (fs.existsSync(".env")) {
     logger.debug("Using .env file to supply config environment variables");
@@ -20,34 +22,20 @@ if (!SESSION_SECRET) {
     process.exit(1);
 }
 
-let dbConf;
-// const dbType = process.env["DATABASE_TYPE"] || 
-if (dbType) {
-    if (dbType ===) {
-
-    }
-}
-if (process.env["DATABASE_TYPE"] &&  process.env["DATABASE_TYPE"].toLowerCase() === "sqlite") {
+const dbType = (process.env["DATABASE_TYPE"] || "sqlite").toLowerCase();
+export let dbConf: ConnectionOptions;
+if (dbType === "sqlite") {
     dbConf = {
-        name: "reading",
         type: "sqlite",
-        // database: path.join(config.dbPath, "database.sqlite")
-    }
-} else if () {
-
+        database: path.resolve("./database.sqlite"),
+    };
+} else if (dbType === "mysql") {
+    dbConf = {
+        type: "mysql",
+        host: "localhost",
+        port: 3306,
+        username: "root",
+        password: "",
+        database: "test",
+    };
 }
-
-export const DATABASE_CONF = {
-    name: "reading",
-    type: "sqlite",
-    database: path.join(config.dbPath, "database.sqlite"),
-};
-
-export const DATABASE_CONF = {
-    type: "mysql",
-    host: "localhost",
-    port: 3306,
-    username: "root",
-    password: "admin",
-    database: "test",
-};

@@ -7,3 +7,10 @@ describe("GET /", () => {
     .expect(200, done);
   });
 });
+
+describe("GET from DB test", () => {
+  it("should return some data from db", (done) => {
+    request(app).get("/db")
+    .expect(200, done);
+  });
+});
