@@ -4,12 +4,16 @@ import { User } from "../entities/User";
 import { Connection } from "typeorm";
 import { Container } from "typedi";
 import logger from "../util/logger";
+import { Redis } from "../services/Redis";
 
 
 export default class ExampleController extends AbstractController {
 
     public static async index(req: HapRequest, res: HapResponse) {
-        logger.info("test", {some: "sdsdsd"});
+        const redis: Redis = Container.get("redis");
+
+        logger.info("test", {some: "sdsdsd", redisKey: redis.client.get("test")});
+
         res.status(200).send("done OK");
         // res.send("asd3 - " + Date.now());
     }

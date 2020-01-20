@@ -1,6 +1,6 @@
 import { HapMiddleware } from "../app/App";
 
-export const exampleMiddleware: HapMiddleware = (req, res, next): void => {
+export const exampleMiddleware: HapMiddleware = async (req, res, next): Promise<void> => {
     console.log("Time1:", Date.now());
     setTimeout(() => {
         console.log("Time2:", Date.now());
