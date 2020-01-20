@@ -11,7 +11,7 @@ export default class ExampleController extends AbstractController {
 
     public static async index(req: HapRequest, res: HapResponse) {
         const redis: Redis = Container.get("redis");
-
+        redis.set("test", "testValueFromRedis");
         logger.info("test", {some: "sdsdsd", redisKey: await redis.get("test")});
 
         res.status(200).send("done OK");
