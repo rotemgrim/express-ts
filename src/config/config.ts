@@ -39,3 +39,8 @@ if (dbType === "sqlite") {
         database: "test",
     };
 }
+
+export let redisConf: any = {
+    port: 234,
+    host: "",
+};

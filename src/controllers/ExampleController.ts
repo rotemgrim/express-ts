@@ -1,19 +1,16 @@
 import AbstractController from "./AbstractController";
 import { HapRequest, HapResponse } from "../app/App";
 import { User } from "../entities/User";
-import { Connection } from "typeorm";
-import { Container } from "typedi";
-
 
 export default class ExampleController extends AbstractController {
 
-    public async index(req: HapRequest, res: HapResponse) {
+    public static async index(req: HapRequest, res: HapResponse) {
         res.status(200).send("done OK");
     }
 
-    public async dbTest(req: HapRequest, res: HapResponse) {
+    public static async dbTest(req: HapRequest, res: HapResponse) {
         // const conn = Container.get("connection") as Connection;
-        const userRepo = this.conn.getRepository(User);
+        const userRepo = super.conn().getRepository(User);
 
         // const user: User = new User();
         // user.firstName = "rotem";
@@ -26,9 +23,9 @@ export default class ExampleController extends AbstractController {
         res.status(200).json(tmp);
     }
 
-    public async redisExample(req: HapRequest, res: HapResponse) {
-        this.redis.set("test", "testValueFromRedis");
-        const dataFromRedis = await this.redis.get("test");
+    public static async redisExample(req: HapRequest, res: HapResponse) {
+        super.redis().set("test", "testValueFromRedis");
+        const dataFromRedis = await super.redis().get("test");
         console.log(dataFromRedis);
         res.status(200).send("done OK");
     }

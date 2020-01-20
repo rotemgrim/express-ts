@@ -1,6 +1,7 @@
 import { Service } from "typedi";
 import redis, { RedisClient } from "redis";
 import { promisify } from "util";
+import { redisConf } from "../config/config";
 
 @Service()
 export class Redis {
@@ -9,7 +10,7 @@ export class Redis {
     private readonly getAsync;
 
     constructor() {
-        this.client = redis.createClient(8288, "localhost");
+        this.client = redis.createClient(redisConf.port, redisConf.host);
         this.getAsync = promisify(this.client.get).bind(this.client);
     }
 

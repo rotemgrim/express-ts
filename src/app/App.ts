@@ -28,8 +28,6 @@ export default class Application {
 
     public start() {
 
-        DbFactory.createConnection(dbConf).catch(e => { throw new Error(e); });
-
         this.loadMiddleWares();
 
         this.app.set("port", process.env.PORT || 3000);
