@@ -3,28 +3,17 @@ import { HapRequest, HapResponse } from "../app/App";
 import { User } from "../entities/User";
 import { Connection } from "typeorm";
 import { Container } from "typedi";
-import logger from "../util/logger";
-import { Redis } from "../services/Redis";
 
 
 export default class ExampleController extends AbstractController {
 
-    public static async index(req: HapRequest, res: HapResponse) {
-        const redis: Redis = Container.get("redis");
-        redis.set("test", "testValueFromRedis");
-        logger.info("test", {some: "sdsdsd", redisKey: await redis.get("test")});
-
+    public async index(req: HapRequest, res: HapResponse) {
         res.status(200).send("done OK");
-        // res.send("asd3 - " + Date.now());
     }
 
-    public static async dbTest(req: HapRequest, res: HapResponse) {
-        // const conn = Container.get(Connection);
-        const conn = Container.get("connection") as Connection;
-        // const conn = getFromContainer(Connection);
-        const userRepo = conn.getRepository(User);
-        // const userRepo = this.connection.getRepository(User);
-
+    public async dbTest(req: HapRequest, res: HapResponse) {
+        // const conn = Container.get("connection") as Connection;
+        const userRepo = this.conn.getRepository(User);
 
         // const user: User = new User();
         // user.firstName = "rotem";
@@ -35,5 +24,12 @@ export default class ExampleController extends AbstractController {
         const tmp = await userRepo.find({id: 1});
         console.log(tmp);
         res.status(200).json(tmp);
+    }
+
+    public async redisExample(req: HapRequest, res: HapResponse) {
+        this.redis.set("test", "testValueFromRedis");
+        const dataFromRedis = await this.redis.get("test");
+        console.log(dataFromRedis);
+        res.status(200).send("done OK");
     }
 }
