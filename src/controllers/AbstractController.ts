@@ -5,18 +5,15 @@ export interface IController {
 
 export default class AbstractController implements IController {
 
-    // protected req: HaploRequest;
-    // protected res: HaploResponse;
-    // protected app: HaploApp;
-
+    // protected req: HapRequest;
+    // protected res: HapResponse;
+    //
     // constructor(
-    //     req: HaploRequest,
-    //     res: HaploResponse,
-    //     app: HaploApp,
+    //     req: HapRequest,
+    //     res: HapResponse,
     // ) {
     //     this.req = req;
     //     this.res = res;
-    //     this.app = app;
     // }
 
 }

@@ -1,19 +1,20 @@
 import AbstractController from "./AbstractController";
-import HaploApp, { HaploRequest, HaploResponse } from "../app/App";
+import { HapRequest, HapResponse } from "../app/App";
 import { User } from "../entities/User";
-import { getConnectionManager, Connection, getFromContainer } from "typeorm";
-import { Container, Service } from "typedi";
-import { InjectConnection } from "typeorm-typedi-extensions";
+import { Connection } from "typeorm";
+import { Container } from "typedi";
+import logger from "../util/logger";
 
 
 export default class ExampleController extends AbstractController {
 
-    public static index(req: HaploRequest, res: HaploResponse) {
+    public static async index(req: HapRequest, res: HapResponse) {
+        logger.info("test", {some: "sdsdsd"});
         res.status(200).send("done OK");
         // res.send("asd3 - " + Date.now());
     }
 
-    public static async dbTest(req: HaploRequest, res: HaploResponse) {
+    public static async dbTest(req: HapRequest, res: HapResponse) {
         // const conn = Container.get(Connection);
         const conn = Container.get("connection") as Connection;
         // const conn = getFromContainer(Connection);

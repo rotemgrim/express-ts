@@ -1,11 +1,9 @@
-import { HaploMiddleware } from "../app/App";
+import { HapMiddleware } from "../app/App";
 
-export const exampleMiddleware: HaploMiddleware = (): Promise<void> => {
-    return new Promise((resolve) => {
-        console.log("Time0:", Date.now());
-        setTimeout(() => {
-            console.log("Time0:", Date.now());
-            resolve();
-        }, 1000);
-    });
+export const exampleMiddleware: HapMiddleware = (req, res, next): void => {
+    console.log("Time1:", Date.now());
+    setTimeout(() => {
+        console.log("Time2:", Date.now());
+        next();
+    }, 1000);
 };

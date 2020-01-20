@@ -1,24 +1,20 @@
 import express from "express";
 import { IRouter } from "express-serve-static-core";
-import Container from "typedi";
 import compression from "compression";  // compresses requests
-import session from "express-session";
 import bodyParser from "body-parser";
-import * as http from "http";
 import DbFactory from "../config/DbFactory";
 import { dbConf } from "../config/config";
 
-export type HaploRequest = express.Request;
-export type HaploResponse = express.Response;
-export type HaploMiddleware = (req: HaploRequest, res: HaploResponse) => Promise<void>;
-export type HaploRoute = () => IRouter;
+export type HapRequest = express.Request;
+export type HapResponse = express.Response;
+export type HapMiddleware = (req: HapRequest, res: HapResponse, next: any) => Promise<void>;
 export type RoutesBatch = (app: IRouter) => void;
 export type App = express.Express;
 
-export default class HaploApp {
+export default class Application {
 
-    private app: App;
-    private middleWares: HaploMiddleware[];
+    private readonly app: App;
+    private readonly middleWares: HapMiddleware[];
     private routeBatches: RoutesBatch[];
 
     public router: express.Router;
@@ -34,7 +30,7 @@ export default class HaploApp {
 
         DbFactory.createConnection(dbConf).catch(e => { throw new Error(e); });
 
-        this.loadMiddlewares();
+        this.loadMiddleWares();
 
         this.app.set("port", process.env.PORT || 3000);
         // this.app.set("views", path.join(__dirname, "../views"));
@@ -50,7 +46,7 @@ export default class HaploApp {
         return this.app;
     }
 
-    public setGlobalMiddlewares(middlewares: HaploMiddleware[]) {
+    public setGlobalMiddleWares(middlewares: HapMiddleware[]) {
         for (const middleware of middlewares) {
             this.middleWares.push(middleware);
         }
@@ -66,12 +62,9 @@ export default class HaploApp {
         }
     }
 
-    private loadMiddlewares() {
+    private loadMiddleWares() {
         for (const middleware of this.middleWares) {
-            this.router.use(async (req, res, next) => {
-                await middleware(req, res);
-                next();
-            });
+            this.app.use(middleware);
         }
     }
 }
