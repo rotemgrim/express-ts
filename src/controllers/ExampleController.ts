@@ -12,7 +12,7 @@ export default class ExampleController extends AbstractController {
     public static async index(req: HapRequest, res: HapResponse) {
         const redis: Redis = Container.get("redis");
 
-        logger.info("test", {some: "sdsdsd", redisKey: redis.client.get("test")});
+        logger.info("test", {some: "sdsdsd", redisKey: await redis.get("test")});
 
         res.status(200).send("done OK");
         // res.send("asd3 - " + Date.now());
