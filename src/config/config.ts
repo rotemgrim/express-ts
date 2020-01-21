@@ -41,6 +41,6 @@ if (dbType === "sqlite") {
 }
 
 export let redisConf: any = {
-    port: 234,
-    host: "",
+    port: 6379,
+    host: "127.0.0.1",
 };

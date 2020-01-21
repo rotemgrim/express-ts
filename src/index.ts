@@ -4,7 +4,8 @@ import { baseRoutes } from "./routes/baseRoutes";
 import { GlobalMiddleware } from "./middlewares/GlobalMiddleware";
 import DbFactory from "./config/DbFactory";
 import { dbConf } from "./config/config";
-import { Redis } from "./services/Redis";
+import { RedisService } from "./services/RedisService";
+import { CronService } from "./services/CronService";
 
 const server: App = Container.get(App);
 
@@ -21,7 +22,8 @@ server.setRoutes([
 (async () => {
     try {
         await DbFactory.createConnection(dbConf).catch(e => { throw new Error(e); });
-        Container.set("redis", new Redis());
+        Container.set("redis", new RedisService());
+        Container.set("cron", new CronService());
         server.start();
     } catch (e) {
         console.error(e);

@@ -1,5 +1,5 @@
 import { Container } from "typedi";
-import { Redis } from "../services/Redis";
+import { RedisService } from "../services/RedisService";
 import { Connection } from "typeorm";
 
 export interface IController {
@@ -8,7 +8,7 @@ export interface IController {
 
 export default class AbstractController implements IController {
 
-    private static redisService: Redis;
+    private static redisService: RedisService;
     private static connection: Connection;
 
     protected static conn(): Connection {
@@ -16,8 +16,8 @@ export default class AbstractController implements IController {
             AbstractController.connection : Container.get("connection") as Connection;
     }
 
-    protected static redis(): Redis {
+    protected static redis(): RedisService {
         return AbstractController.redisService ?
-            AbstractController.redisService : Container.get("redis") as Redis;
+            AbstractController.redisService : Container.get("redis") as RedisService;
     }
 }
